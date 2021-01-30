@@ -5,18 +5,18 @@ This practical lab introduces the participants to the affordances of Google Clou
 1. [Introduction to Google Vision API](#introduction-to-google-vision-api)
 2. [Signing up for Google Cloud](#signing-up-for-google-cloud)
 3. [Obtaining a credential file](#obtaining-a-credential-file)
-   3.1 [Create a project](#create-a-project)
-   3.2 [Enable Vision API](#enable-vision-api)
-   3.3 [Create a service account](#create-a-service-account)
+   - [Create a project](#create-a-project)
+   - [Enable Vision API](#enable-vision-api)
+   - [Create a service account](#create-a-service-account)
 4. [Downloading Memespector-GUI](#downloading-memespector-gui)
 5. [Opening Memespector-GUI for the first time](#opening-memespector-gui-for-the-first-time)
-   5.1 [On Mac](#on-mac)
-   5.2 [On Windows](#on-windows)
+   - [On Mac](#on-mac)
+   - [On Windows](#on-windows)
 6. Using Memespector-GUI
-   6.1 Select the credential key file
-   6.2 Add images to Memespector-GUI
-   6.3 Invoke the API
-   6.4 Open the CSV
+   - Select the credential key file
+   - Add images to Memespector-GUI
+   - Invoke the API
+   - Open the CSV
 
 ## Introduction to Google Vision API
 Google Vision API extract information from images using pre-trained artificial intelligence models.   It detects faces, emotions, text and explicit content, and suggests labels and similar images on the web.  See [here](https://cloud.google.com/vision/docs/features-list) for a full list of features.  The easiest way to try out Google Vision API is to use Google’s [drag-and-drop demo](https://cloud.google.com/vision/docs/drag-and-drop).
