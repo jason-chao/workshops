@@ -6,6 +6,7 @@
   * [Sign up](#sign-up)
   * [Record a session](#record-a-session)
   * [Open a session](#open-a-session)
+  * [Clean up](#clean-up)
 
 ## Introduction to AppTraffic
 
@@ -87,7 +88,9 @@ Turn on the VPN connection on your device when you see this message in a green b
 
 ![screenshot](blackbox_of_mobile_apps_traffic/recording-in-progress.png)
 
-Now, please use the app that you want to study on your device to generate data traffic.  
+Now, please use the app that you want to study on your device to generate data traffic.
+
+![screenshot](blackbox_of_mobile_apps_traffic/using-reddit.png)
 
 Click `View the traffic` to see the live decrypted data traffic.  
 
@@ -125,7 +128,16 @@ After downloading the traffic file, open the Chrome browser on your computer.  O
 
 ![screenshot](blackbox_of_mobile_apps_traffic/menu-developer-tools.png)
 
-Open the `Network` tab in the Developer tool.   Drag and drop the traffic file into the `Recording network activity ...` area of Network tab of the Developer tool to inspect or replay the traffic.
+Open the `Network` tab in the Developer tool.   Drag and drop the traffic file into the `Recording network activity ...` area of Network tab of the Developer tool.  
 
 ![screenshot](blackbox_of_mobile_apps_traffic/network-tab-empty.png)
 
+You will see the traffic flow of the session in full. 
+
+![screenshot](blackbox_of_mobile_apps_traffic/network-tab-harloaded.png)
+
+### Clean up
+
+The configuration profiles installed on your iOS device enabled some decryption capability. The risk of being exploited by others is extremely low because decryption is only possible when you connect to AppTraffic's VPN servers. Other man-in-the-middle servers cannot make use of these configuration profiles to decrypt your data traffic.
+
+till, you may remove the configuration profiles installed on your device to disable the decryption capability entirely for your peace of mind.  If so, please follow the instructions [here](https://github.com/jason-chao/AppTraffic/blob/master/doc/remove_ios_profiles.md).
