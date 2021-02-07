@@ -2,6 +2,7 @@
 
 ## Contents
 * [Introduction to AppTraffic](#introduction-to-apptraffic)
+* [Decrypted mode explained](#decrypted-mode-explained)
 * [Using AppTraffic](#using-appTraffic)
   * [Sign up](#sign-up)
   * [Record a session](#record-a-session)
@@ -41,6 +42,46 @@ AppTraffic has three data captures modes.
 The Decrypted mode of AppTraffic uses a technique called “man-in-the-middle” to intercept the encrypted data.  Due to security restrictions, some devices and some apps do not work with Decrypted mode.   This technique works with the latest versions of iOS.  However, Android versions above 7 do not work with Decrypted mode.  Some popular apps and finance apps implement a mechanism called “certificate-pinning” which is designed to prevent “man-in-the-middle” attacks.   Unfortunately, AppTraffic does not work with apps which implement “certificate-pinning”.  
 
 ![screenshot](studying_the_data_traffic_of_mobile_apps/limitations-to-decrypted-mode.png)
+
+## Decrypted mode explained
+
+The "decryption" capability of AppTraffic sometimes raises concerns amongst researchers or IT professionals who are considering to use or install AppTraffic.  I must emphasise that AppTraffic does not open up encrypted network connections in a clandestine manner.   In a nutshell, AppTraffic is unable to decrypt the network traffic of a random device.  A research device must be configured to trust AppTraffic before AppTraffic can read the encrypted data traffic.
+
+Indeed, technically, AppTraffic does not "break" encryption.  Rather, AppTraffic tries to gain the trust of the research device for the purpose of establishing secure network connections.  In other words, the key to AppTraffic's "decryption" capability is creating trust between the research device and AppTraffic.
+
+The creation of trust may be explained using an analogy of wax-sealing.
+
+![picture](studying_the_data_traffic_of_mobile_apps/wax-sealing.png)
+
+In this analogy, the recipient Bella knows the stamp of the sender Alice. By recognising Alice's seal, Bella is confident that the envelope is sealed by Alice and has not been opened by anyone. Bella trusts that whatever written inside must be the words of Alice.
+
+![illustration](studying_the_data_traffic_of_mobile_apps/analogy-trusted.png)
+
+One day, the courier breaks Alice's seal and opens the envelope. The courier reads Alice's message to Bella, alters the message by adding words of his own and re-seals the envelope using a stamp created by the courier.  Although the courier could see and break Alice's wax seal, he has no means to recreate Alice's wax seal.  Upon Bella's receipt of the envelope, Bella does not recognise the seal.  Bella destroys the envelope straight away and even does not bother to know what is written inside.
+
+One might ask that the courier could invest in creating a good replica of Alice's stamp to the extent that Bella could not distinguish between wax embossed by the authentic stamp and the duplicate stamp. This might be possible for physical stamps.  For the purpose of encryption, please imagine that duplicating Alice's stamp is practically impossible. In asymmetric encryption, calculating one's private key would take an enormous amount of time which would exceed an individual's lifetime.
+
+![illustration](studying_the_data_traffic_of_mobile_apps/analogy-intercept.png)
+
+For an encrypted network connection (SSL in most cases) to be successfully established, the device (or client) must trust a certificate-issuing authority in advance. A certificate-issuing authority bears the name "authority" but is usually not a government body. These authorities may be telecoms or companies that verify domain names or organisations' ownership before they issue SSL certificates.  
+
+A service provider usually uses a certificate signed by an authority to establish an encrypted connection with the device. The device checks whether the authority endorsed the certificate is on the list of trusted authorities before it starts to send data to the service provider.
+
+![illustration](studying_the_data_traffic_of_mobile_apps/ssl-successful.png)
+
+A technique called "man-in-the-middle" may be used to peek into the connection. In the process, the hacker has to re-encrypt the connection using a certificate in the hacker's possession.  Usually, it is impossible that the hacker possesses a certificate trusted by the device.  The device would decline to establish the connection and refuse to send any data on this connection any further.   How others achieve "man-in-the-middle" attacks in the real world is not discussed here.
+
+![illustration](studying_the_data_traffic_of_mobile_apps/ssl-unsuccessful.png)
+
+AppTraffic uses the "man-in-the-middle" technique to inspect encrypted network connections. In the Decrypted mode, AppTraffic asks a research device to trust a certificate-issuing authority created by AppTraffic.  AppTraffic asks the researcher to install that authority's certificate before opens a data capture session for the researcher.  For instance, on iOS, AppTraffic will ask the researcher to install two configuration profiles. One configuration file carries the details of the VPN connection. Another configuration file carries the certificate of a new certificate-signing authority that AppTraffic creates for the researcher.
+
+Therefore, when AppTraffic re-encrypts the data, the device would have no problem trusting the connection and sending data on this connection.   It is because AppTraffic's certificate, to be precise the researcher's certificate created by AppTraffic, is on the list of trusted authorities on the device.
+
+![illustration](studying_the_data_traffic_of_mobile_apps/ssl-mitm.png)
+
+Every device (or client) holds a list of trusted certificate-issuing authorities. Most browsers and operating systems allow users to disable an individual certificating-issuing authority. Once disabled, the device would not trust the encrypted connections established using the certificates signed by that authority.
+
+![illustration](studying_the_data_traffic_of_mobile_apps/ssl-authorities.png)
 
 ## Using AppTraffic
 
